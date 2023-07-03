@@ -66,12 +66,6 @@
             <version>3.5.3.1</version>
         </dependency>
 
-        <!--<dependency>-->
-        <!--    <groupId>org.apache.velocity</groupId>-->
-        <!--    <artifactId>velocity-engine-core</artifactId>-->
-        <!--    <version>2.3</version>-->
-        <!--</dependency>-->
-
         <!--endregion-->
 
     </dependencies>

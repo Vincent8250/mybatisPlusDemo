@@ -10,24 +10,28 @@ import java.util.Collections;
 
 public class CodeGenerator {
 
+    /**
+     * mybatis-Plus 反向代码生成
+     *
+     * @param args
+     */
     public static void main(String[] args) {
+        // 下面代码事直接从mybatis-Plus官网粘贴的
+        // 相比官网追加了 spring-boot-starter-freemarker 依赖
         FastAutoGenerator.create("jdbc:mysql://localhost:3306/oa?autoReconnect=true&useUnicode=true&createDatabaseIfNotExist=true&characterEncoding=utf8&useSSL=true&serverTimezone=UTC", "vincent", "vincent")
                 .globalConfig(builder -> {
                     builder.author("孟子铭") // 设置作者
-                            .enableSwagger() // 开启 swagger 模式
+                            //.enableSwagger() // 开启 swagger 模式
                             //.fileOverride() // 覆盖已生成文件
                             .outputDir("D:\\github\\mybatisPlus_demo\\src\\main\\java"); // 指定输出目录
                 })
                 .dataSourceConfig(builder -> builder.typeConvertHandler(
                         (globalConfig, typeRegistry, metaInfo) -> {
-                    int typeCode = metaInfo.getJdbcType().TYPE_CODE;
-                    if (typeCode == Types.SMALLINT) {
-                        // 自定义类型转换
-                        return DbColumnType.INTEGER;
-                    }
-                    return typeRegistry.getColumnType(metaInfo);
-
-                }))
+                            int typeCode = metaInfo.getJdbcType().TYPE_CODE;
+                            if (typeCode == Types.SMALLINT)// 自定义类型转换
+                                return DbColumnType.INTEGER;
+                            return typeRegistry.getColumnType(metaInfo);
+                        }))
                 .packageConfig(builder -> {
                     builder.parent("cn.vincent") // 设置父包名
                             //.moduleName("entity") // 设置父包模块名

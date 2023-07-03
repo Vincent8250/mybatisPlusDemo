@@ -2,6 +2,7 @@ package cn.vincent.controller;
 
 import cn.vincent.entity.UserInfo;
 import cn.vincent.mapper.UserInfoMapper;
+import cn.vincent.service.IUserInfoService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,13 +25,12 @@ import java.util.List;
 public class UserInfoController {
 
     @Autowired
-    UserInfoMapper userInfoMapper;
+    IUserInfoService iUserInfoService;
 
     @ResponseBody
     @GetMapping("/getUserInfo")
     public String getUserInfo(){
-        List<UserInfo> userInfos = userInfoMapper.selectList(new QueryWrapper<>());
+        List<UserInfo> userInfos = iUserInfoService.list();
         return userInfos.toString();
     }
-
 }
