@@ -86,7 +86,14 @@
 
 #### 分页插件
 
-
+~~~java
+@Bean
+public MybatisPlusInterceptor mybatisPlusInterceptor() {
+    MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+    interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.H2));
+    return interceptor;
+}
+~~~
 
 #### 逻辑删除
 
@@ -101,6 +108,27 @@
 
 
 #### 自动填充
+
+~~~java
+public class MybatisPlusHandler implements MetaObjectHandler {
+    //注意！ 需要自动填充字段 需要标记fill属性
+    //@TableField(.. fill = FieldFill.INSERT)
+    //private String fillField;
+
+    @Override
+    public void insertFill(MetaObject metaObject) {
+        log.info("数据插入前 注入 ....");
+        this.strictInsertFill(metaObject, "userPwd", String.class, "123");
+        this.strictInsertFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
+    }
+
+    @Override
+    public void updateFill(MetaObject metaObject) {
+        log.info("数据更新前 注入 ....");
+        this.strictInsertFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
+    }
+}
+~~~
 
 
 
