@@ -12,7 +12,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @author 孟子铭
  * @since 2023-07-03
  */
-@Mapper
 public interface UserInfoMapper extends BaseMapper<UserInfo> {
 
 }

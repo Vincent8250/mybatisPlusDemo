@@ -38,6 +38,11 @@
             <version>1.5.22</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
         <!--region 数据库依赖 -->
 
         <dependency>

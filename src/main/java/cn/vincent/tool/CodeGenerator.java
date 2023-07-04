@@ -22,7 +22,6 @@ public class CodeGenerator {
                 .globalConfig(builder -> {
                     builder.author("孟子铭") // 设置作者
                             //.enableSwagger() // 开启 swagger 模式
-                            //.fileOverride() // 覆盖已生成文件
                             .outputDir("D:\\github\\mybatisPlus_demo\\src\\main\\java"); // 指定输出目录
                 })
                 .dataSourceConfig(builder -> builder.typeConvertHandler(
@@ -38,9 +37,10 @@ public class CodeGenerator {
                             .pathInfo(Collections.singletonMap(OutputFile.xml, "D:\\github\\mybatisPlus_demo\\src\\main\\resources\\mapper")); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("order_1") // 设置需要生成的表名
-                            .addTableSuffix("_1")
-                            .addTablePrefix("t_", "c_"); // 设置过滤表前缀
+                    builder.addInclude("user_info") // 设置需要生成的表名
+                            .addTableSuffix("_1")// 设置过滤表后缀
+                            .addTablePrefix("_t") // 设置过滤表前缀
+                            .entityBuilder().enableFileOverride();//entity生成时覆盖
                 })
                 .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
                 .execute();

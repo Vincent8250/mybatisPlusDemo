@@ -4,6 +4,10 @@ import cn.vincent.entity.UserInfo;
 import cn.vincent.mapper.UserInfoMapper;
 import cn.vincent.service.IUserInfoService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,8 +33,20 @@ public class UserInfoController {
 
     @ResponseBody
     @GetMapping("/getUserInfo")
-    public String getUserInfo(){
-        List<UserInfo> userInfos = iUserInfoService.list();
-        return userInfos.toString();
+    public String getUserInfo() throws JsonProcessingException {
+        IPage<UserInfo> iPage = new Page<>();
+        iPage.setSize(2);
+        IPage<UserInfo> userInfoIPage = iUserInfoService.page(iPage);
+        ObjectMapper jacksonMapper = new ObjectMapper();
+        return jacksonMapper.writeValueAsString(userInfoIPage);
+    }
+
+    @ResponseBody
+    @GetMapping("/addUserInfo")
+    public String addUserInfo(){
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUserName("熏晴微穗");
+        Boolean flag = iUserInfoService.save(userInfo);
+        return flag.toString();
     }
 }
