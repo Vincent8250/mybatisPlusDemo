@@ -98,11 +98,45 @@
 
 
 
+### 工作原理
+
+#### 概述
+
+mybatis的工作主要分为两步骤：构建会话工厂 =》会话运行
+![image-20230906133204102](mybatis.assets/image-20230906133204102.png)
 
 
 
+#### 会话工厂
 
+1. 构建配置对象
+   根据配置文件构建配置对象
+2. 构建会话工厂
 
+#### 会话运行
+
+会话运行依靠四个组件：
+<img src="mybatis.assets/image-20230906133715232.png" alt="image-20230906133715232" style="zoom:67%;" />
+
+- Executor：执行器
+  它提供了相应的查询和更新方法 以及事务方法
+- StatementHandler：数据库会话器
+- ParameterHandler：参数处理器
+- ResultSetHandler：结果处理器
+
+![image-20230906143302393](mybatis.assets/image-20230906143302393.png)
+
+#### 完整流程
+
+1. 读取 MyBatis 配置文件——mybatis-config.xml 、加载映射文件——映射文件即 SQL 映射文件，文件中配置了操作数据库的 SQL 语句。最后生成一个配置对象。
+2. 构造会话工厂：通过 MyBatis 的环境等配置信息构建会话工厂 SqlSessionFactory。
+3. 创建会话对象：由会话工厂创建 SqlSession 对象，该对象中包含了执行 SQL 语句的所有方法。
+4. Executor 执行器：MyBatis 底层定义了一个 Executor 接口来操作数据库，它将根据 SqlSession 传递的参数动态地生成需要执行的 SQL 语句，同时负责查询缓存的维护。
+5. StatementHandler：数据库会话器，串联起参数映射的处理和运行结果映射的处理。
+6. 参数处理：对输入参数的类型进行处理，并预编译。
+7. 结果处理：对返回结果的类型进行处理，根据对象映射规则，返回相应的对象。
+
+![image-20230906145445437](mybatis.assets/image-20230906145445437.png)
 
 
 
