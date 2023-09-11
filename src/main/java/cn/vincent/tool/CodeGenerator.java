@@ -37,7 +37,7 @@ public class CodeGenerator {
                             .pathInfo(Collections.singletonMap(OutputFile.xml, "D:\\github\\mybatisPlus_demo\\src\\main\\resources\\mapper")); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("user_info") // 设置需要生成的表名
+                    builder.addInclude("tree_table") // 设置需要生成的表名
                             .addTableSuffix("_1")// 设置过滤表后缀
                             .addTablePrefix("_t") // 设置过滤表前缀
                             .entityBuilder().enableFileOverride();//entity生成时覆盖
